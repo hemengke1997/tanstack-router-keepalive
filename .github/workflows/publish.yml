@@ -30,7 +30,10 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Set up npm auth
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.npm_token }}
+
       - name: Publish to NPM
         run: pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
