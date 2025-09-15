@@ -1,7 +1,7 @@
 {
   "name": "tanstack-router-keepalive",
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Route-level keepalive for @tanstack/react-router",
   "license": "MIT",
   "repository": {
