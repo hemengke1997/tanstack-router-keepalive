@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root';
 import { Route as LayoutLayoutRouteImport } from './routes/_layout/layout';
+import { Route as PageRouteImport } from './routes/page';
 import { Route as LayoutUserLayoutRouteImport } from './routes/_layout/user/layout';
 import { Route as LayoutIndexLayoutRouteImport } from './routes/_layout/index/layout';
 import { Route as LayoutUserListPageRouteImport } from './routes/_layout/user/list/page';
@@ -18,6 +19,11 @@ import { Route as LayoutIndexDashboardPageRouteImport } from './routes/_layout/i
 
 const LayoutLayoutRoute = LayoutLayoutRouteImport.update({
   id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const PageRoute = PageRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any);
 const LayoutUserLayoutRoute = LayoutUserLayoutRouteImport.update({
@@ -48,6 +54,7 @@ const LayoutIndexDashboardPageRoute =
   } as any);
 
 export interface FileRoutesByFullPath {
+  '/': typeof PageRoute;
   '/index': typeof LayoutIndexLayoutRouteWithChildren;
   '/user': typeof LayoutUserLayoutRouteWithChildren;
   '/index/dashboard': typeof LayoutIndexDashboardPageRoute;
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
   '/user/list': typeof LayoutUserListPageRoute;
 }
 export interface FileRoutesByTo {
+  '/': typeof PageRoute;
   '/index': typeof LayoutIndexLayoutRouteWithChildren;
   '/user': typeof LayoutUserLayoutRouteWithChildren;
   '/index/dashboard': typeof LayoutIndexDashboardPageRoute;
@@ -63,6 +71,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
+  '/': typeof PageRoute;
   '/_layout': typeof LayoutLayoutRouteWithChildren;
   '/_layout/index': typeof LayoutIndexLayoutRouteWithChildren;
   '/_layout/user': typeof LayoutUserLayoutRouteWithChildren;
@@ -73,15 +82,23 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
+    | '/'
     | '/index'
     | '/user'
     | '/index/dashboard'
     | '/user/add'
     | '/user/list';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/index' | '/user' | '/index/dashboard' | '/user/add' | '/user/list';
+  to:
+    | '/'
+    | '/index'
+    | '/user'
+    | '/index/dashboard'
+    | '/user/add'
+    | '/user/list';
   id:
     | '__root__'
+    | '/'
     | '/_layout'
     | '/_layout/index'
     | '/_layout/user'
@@ -91,6 +108,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
+  PageRoute: typeof PageRoute;
   LayoutLayoutRoute: typeof LayoutLayoutRouteWithChildren;
 }
 
@@ -101,6 +119,13 @@ declare module '@tanstack/react-router' {
       path: '';
       fullPath: '';
       preLoaderRoute: typeof LayoutLayoutRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/': {
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof PageRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/_layout/user': {
@@ -180,6 +205,7 @@ const LayoutLayoutRouteWithChildren = LayoutLayoutRoute._addFileChildren(
 );
 
 const rootRouteChildren: RootRouteChildren = {
+  PageRoute: PageRoute,
   LayoutLayoutRoute: LayoutLayoutRouteWithChildren,
 };
 export const routeTree = rootRouteImport

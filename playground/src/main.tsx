@@ -16,6 +16,7 @@ export const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
   scrollRestoration: true,
+  basepath: import.meta.env.BASE_URL,
 })
 
 // Register the router instance for type safety

@@ -5,12 +5,20 @@ import { createFileRoute, Link, useLocation, useRouter } from '@tanstack/react-r
 import { KeepAliveOutlet } from 'tanstack-router-keepalive'
 import KeepAliveTabs from '@/components/keepalive-tabs'
 
+function formatPathname(pathname: string) {
+  return pathname
+    .replace(new RegExp(`^${import.meta.env.BASE_URL}`), '/')
+    .replace(/\/$/, '')
+}
+
 export const Route = createFileRoute('/_layout')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { pathname } = useLocation()
+  const pathname = formatPathname(useLocation({
+    select: location => location.pathname,
+  }))
 
   const router = useRouter()
 
