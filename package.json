@@ -1,0 +1,74 @@
+{
+  "name": "tanstack-router-keepalive",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Route-level keepalive for @tanstack/react-router",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hemengke1997/tanstack-router-keepalive.git"
+  },
+  "keywords": [
+    "tanstack-router-keepalive"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rslib build --watch",
+    "build": "rslib build",
+    "build:pages": "npm run build && cd playground && npm run build",
+    "prepare": "simple-git-hooks",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint -e",
+    "lint": "eslint . --fix",
+    "bump": "bumpp package.json -c --no-push -t --all"
+  },
+  "dependencies": {
+    "eventemitter3": "^5.0.1",
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.3.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@rsbuild/plugin-react": "^1.4.0",
+    "@rslib/core": "^0.13.2",
+    "@tanstack/react-router": "^1.131.41",
+    "@types/lodash.clonedeep": "^4.5.9",
+    "@types/node": "^24.3.1",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "bumpp": "^10.2.3",
+    "eslint": "^9.35.0",
+    "eslint-plugin-format": "^1.0.1",
+    "lint-staged": "^16.1.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "simple-git-hooks": "^2.13.1",
+    "typescript": "^5.9.2"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "npm run commitlint",
+    "pre-commit": "npm run lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
