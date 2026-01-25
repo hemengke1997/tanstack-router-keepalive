@@ -1,5 +1,5 @@
 import { getRouterContext, Outlet } from '@tanstack/react-router'
-import cloneDeep from 'lodash.clonedeep'
+import cloneDeep from 'lodash/clonedeep'
 import { useContext, useMemo, useRef } from 'react'
 
 export default function CachedOutlet() {
